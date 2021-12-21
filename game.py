@@ -6,8 +6,9 @@ from random import random
 from pygame.constants import K_UP
 pygame.init()
 
+
 #seed for random number generator
-seed(2)
+seed(4)
 
 # Set up the drawing window
 SCREEN_WIDTH = 500
@@ -26,9 +27,9 @@ playerVel = 0
 gravity = 0.0002
 
 #draws player
-bird1 = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\bird_1.png')
-bird2 = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\bird_2.png')
-bird3 = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\bird_3.png')
+bird1 = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\bird_1.png')
+bird2 = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\bird_2.png')
+bird3 = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\bird_3.png')
 
 bird_sprite = [bird1, bird2, bird3]
 bird_index = 0
@@ -81,7 +82,7 @@ p2 = pillar(40, 200, 150, SCREEN_WIDTH + 40)
 p3 = pillar(40, 200, 100, SCREEN_WIDTH + 40)
 p4 = pillar(40, 200, 100, SCREEN_WIDTH + 40)
 p5 = pillar(40, 50, 250, SCREEN_WIDTH + 40)
-p6 = pillar(40, 400, 100, SCREEN_WIDTH + 40)
+p6 = pillar(40, 300, 100, SCREEN_WIDTH + 40)
 p7 = pillar(40, 100, 100, SCREEN_WIDTH + 40)
 
 
