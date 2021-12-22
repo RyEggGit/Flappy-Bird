@@ -43,7 +43,7 @@ hover = False
 
 play_width = 150
 play_height = 100
-play_rect = pygame.Rect(SCREEN_WIDTH // 2 - play_width / 2 , SCREEN_HEIGHT//2 - play_height /2, play_width, play_height)
+play_rect = pygame.Rect(SCREEN_WIDTH // 2 - play_width / 2 , SCREEN_HEIGHT//2 - play_height /2 + 50, play_width, play_height)
 
 
 # Colors
@@ -151,7 +151,7 @@ while running:
                     #hover = False
                                     
         screen.blit(title, (SCREEN_WIDTH // 2 - 150 , SCREEN_HEIGHT//2 - 200))    
-        pygame.draw.rect(screen, color_white, play_rect)
+        pygame.draw.rect(screen, color_green, play_rect)
         if(hover == True):
             screen.blit(play_hover, (SCREEN_WIDTH // 2 - play_width / 2 , SCREEN_HEIGHT//2 - play_height /2 + 50))
         else:
