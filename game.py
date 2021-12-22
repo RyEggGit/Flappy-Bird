@@ -26,18 +26,18 @@ playerVel = 0
 gravity = 0.0002
 
 #draws player
-bird1 = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\bird_1.png')
-bird2 = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\bird_2.png')
-bird3 = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\bird_3.png')
+bird1 = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\images\bird_1.png')
+bird2 = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\images\bird_2.png')
+bird3 = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\images\bird_3.png')
 
 bird_sprite = [bird1, bird2, bird3]
 bird_index = 0
 bird_index_delay = 0
 
 # Home Screen Images
-title = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\title.png')
-play_norm = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\play.png')
-play_hover = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\play_hover.png')
+title = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\images\title.png')
+play_norm = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\images\play.png')
+play_hover = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\images\play_hover.png')
 
 hover = False
 
@@ -151,7 +151,7 @@ while running:
                     #hover = False
                                     
         screen.blit(title, (SCREEN_WIDTH // 2 - 150 , SCREEN_HEIGHT//2 - 200))    
-        pygame.draw.rect(screen, color_green, play_rect)
+        #pygame.draw.rect(screen, color_green, play_rect)
         if(hover == True):
             screen.blit(play_hover, (SCREEN_WIDTH // 2 - play_width / 2 , SCREEN_HEIGHT//2 - play_height /2 + 50))
         else:
