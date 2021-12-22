@@ -13,7 +13,6 @@ seed(4)
 # Set up the drawing window
 SCREEN_WIDTH = 500
 SCREEN_HEIGHT = 600
-game_screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 
 # Player Variables
@@ -34,6 +33,18 @@ bird3 = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flapp
 bird_sprite = [bird1, bird2, bird3]
 bird_index = 0
 bird_index_delay = 0
+
+# Home Screen Images
+title = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\title.png')
+play_norm = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\play.png')
+play_hover = pygame.image.load(r'C:\Users\RyEgg\OneDrive\Desktop\Python Project\Flappy-Bird\play_hover.png')
+
+hover = False
+
+play_width = 150
+play_height = 100
+play_rect = pygame.Rect(SCREEN_WIDTH // 2 - play_width / 2 , SCREEN_HEIGHT//2 - play_height /2, play_width, play_height)
+
 
 # Colors
 color_player = (138,43,226)
@@ -56,8 +67,8 @@ class pillar ():
         self.x = x
 
     def drawpillars(self):
-        pygame.draw.rect(game_screen, color_red , pygame.Rect(self.x, 0, self.width, self.height_top))
-        pygame.draw.rect(game_screen, color_red , pygame.Rect(self.x, self.height_bot, self.width, self.height_top))
+        pygame.draw.rect(screen, color_red , pygame.Rect(self.x, 0, self.width, self.height_top))
+        pygame.draw.rect(screen, color_red , pygame.Rect(self.x, self.height_bot, self.width, self.height_top))
         return self.check_out_of_screen()
 
     def check_out_of_screen(self):
@@ -74,6 +85,7 @@ class pillar ():
         else:
             return False
 
+
 # Create the pillar array
 """         w    h   o         x        """
 p0 = pillar(40, 200, 100, SCREEN_WIDTH + 40)
@@ -81,9 +93,9 @@ p1 = pillar(40, 250, 100, SCREEN_WIDTH + 40)
 p2 = pillar(40, 200, 150, SCREEN_WIDTH + 40)
 p3 = pillar(40, 200, 100, SCREEN_WIDTH + 40)
 p4 = pillar(40, 200, 100, SCREEN_WIDTH + 40)
-p5 = pillar(40, 50, 250, SCREEN_WIDTH + 40)
-p6 = pillar(40, 300, 100, SCREEN_WIDTH + 40)
-p7 = pillar(40, 100, 100, SCREEN_WIDTH + 40)
+p5 = pillar(40, 150, 75, SCREEN_WIDTH + 40)
+p6 = pillar(40, 200, 100, SCREEN_WIDTH + 40)
+p7 = pillar(40, 300, 150, SCREEN_WIDTH + 40)
 
 
 a_pillar = [p0,p1,p2,p3,p4,p5,p6,p7]
@@ -97,66 +109,113 @@ text = font.render(str(score), True, color_black, color_white)
 textRect = text.get_rect()  
 textRect.center = (SCREEN_WIDTH -15, 15)
 
-
-# Run until the user asks to quit
+#Screen Variables
+home_screen = True
+game_screen = False
 running = True
+
+
+
 while running:
-    # User Input
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
-                playerVel -= velocity_multiplyer
-    #moves player
-    playerY +=  playerVel
-    playerVel += gravity
-
-    #upper and lower bound checks
-    if(playerY + playerH > SCREEN_HEIGHT):
-        #playerVel = 0
-        #playerY = SCREEN_HEIGHT - playerH
-        break
-    elif(playerY < 0):
-        #playerVel = 0
-        #playerY = 0
-        break
-    else:
-        playerVel += gravity
-    #print("Y: " +str(playerY))
-    #print("Vel: " +str(playerVel))
-
     # Fill the background with white
-    game_screen.fill((255, 255, 255))
+    screen.fill((255, 255, 255))
 
-    
+    # HomeScreen Code
+    if(home_screen == True):
+        playerY = 100
+        playerVel = 0
 
-    # draw pillars
-    if(a_draw[pillar_index] == True): 
-        a_draw[pillar_index] = a_pillar[pillar_index].drawpillars()
-        if(a_pillar[pillar_index].checkcollsion(playerY, playerX, playerW, score) == True):
-            running = False  
-    else:
-        pillar_speed += 0.001
-        score += 1
         a_draw[pillar_index] = False
-        pillar_index = randint(0, len(a_pillar))
+        pillar_index = randint(0, len(a_pillar) - 1)
         a_draw[pillar_index] = True
-        print("Drawing: p" + str(pillar_index))
-    
-    #draw score
-    text = font.render(str(score), True, color_green, color_white)
-    screen.blit(text, textRect)
 
-    # Draw player
-    #pygame.draw.rect(screen, color_red, pygame.Rect(playerX+10, playerY + 12, playerW, playerH)) 
-    screen.blit(bird_sprite[bird_index], (playerX, playerY))   
-    if( bird_index_delay == 120):
-        bird_index_delay = 0
-        if(bird_index == 2):
-            bird_index = -1
-        bird_index +=1
-    bird_index_delay += 1
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                break
+            if event.type == pygame.MOUSEMOTION:
+                mouse_position = pygame.mouse.get_pos()
+                if (play_rect.collidepoint(mouse_position)):
+                    hover = True
+                else:
+                    hover = False
+                
+            if event.type == pygame.MOUSEBUTTONUP:
+                mouse_position = pygame.mouse.get_pos()
+                if (play_rect.collidepoint(mouse_position)):
+                    home_screen = False
+                    game_screen = True
+                    print(home_screen)
+                    break
+                    #hover = False
+                                    
+        screen.blit(title, (SCREEN_WIDTH // 2 - 150 , SCREEN_HEIGHT//2 - 200))    
+        pygame.draw.rect(screen, color_white, play_rect)
+        if(hover == True):
+            screen.blit(play_hover, (SCREEN_WIDTH // 2 - play_width / 2 , SCREEN_HEIGHT//2 - play_height /2 + 50))
+        else:
+            screen.blit(play_norm, (SCREEN_WIDTH // 2 - play_width / 2 , SCREEN_HEIGHT//2 - play_height /2 + 50))
+        
+    # Game loop Code   
+    else:
+        # User Input
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                break
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
+                    playerVel -= velocity_multiplyer
+        #moves player
+        playerY +=  playerVel
+        playerVel += gravity
+
+        #upper and lower bound checks
+        if(playerY + playerH > SCREEN_HEIGHT):
+            #playerVel = 0
+            #playerY = SCREEN_HEIGHT - playerH
+            home_screen = True
+            game_screen = False
+        elif(playerY < 0):
+            #playerVel = 0
+            #playerY = 0
+            home_screen = True
+            game_screen = False
+        else:
+            playerVel += gravity
+        #print("Y: " +str(playerY))
+        #print("Vel: " +str(playerVel))
+
+        
+            
+        # draw pillars
+        if(a_draw[pillar_index] == True): 
+            a_draw[pillar_index] = a_pillar[pillar_index].drawpillars()
+            if(a_pillar[pillar_index].checkcollsion(playerY, playerX, playerW, score) == True):
+                home_screen = True
+                game_screen = False  
+        else:
+            pillar_speed += 0.005
+            score += 1
+            a_draw[pillar_index] = False
+            pillar_index = randint(0, len(a_pillar) - 1)
+            a_draw[pillar_index] = True
+            print("Drawing: p" + str(pillar_index))
+        
+        #draw score
+        text = font.render(str(score), True, color_green, color_white)
+        screen.blit(text, textRect)
+
+        # Draw player
+        #pygame.draw.rect(screen, color_red, pygame.Rect(playerX+10, playerY + 12, playerW, playerH)) 
+        screen.blit(bird_sprite[bird_index], (playerX, playerY))   
+        if( bird_index_delay == 120):
+            bird_index_delay = 0
+            if(bird_index == 2):
+                bird_index = -1
+            bird_index +=1
+        bird_index_delay += 1
 
     # Flip the display
     pygame.display.flip()
